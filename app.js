@@ -12,7 +12,7 @@ const contactRoutes = require('./routes/contact');
 app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use('/api', contactRoutes);git push
+app.use('/api', contactRoutes);
 
 // ==================== Multer config cho schedule ====================
 const storageSchedule = multer.diskStorage({
