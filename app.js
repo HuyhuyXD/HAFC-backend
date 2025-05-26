@@ -12,7 +12,7 @@ const contactRoutes = require('./routes/contact');
 app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use('/api', contactRoutes);
+app.use('/api', contactRoutes);git push
 
 // ==================== Multer config cho schedule ====================
 const storageSchedule = multer.diskStorage({
@@ -43,7 +43,6 @@ app.delete('/delete-schedule/:filename', (req, res) => {
   });
 });
 
-// ==================== Multer config cho recruitment ====================
 const storageRecruitment = multer.diskStorage({
   destination: (req, file, cb) => cb(null, 'uploads/recruitment'),
   filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname),

@@ -5,8 +5,13 @@ const nodemailer = require('nodemailer');
 router.post('/contact', async (req, res) => {
   const { name, email, message } = req.body;
 
-  // Debug đầu vào
+  // Debug đầu vào từ form
   console.log("🔥 Nhận dữ liệu contact:", { name, email, message });
+
+  // Debug biến môi trường
+  console.log("🧪 MAIL_USER:", process.env.MAIL_USER);
+  console.log("🧪 MAIL_PASS:", process.env.MAIL_PASS ? "✅ Có giá trị" : "❌ Thiếu!");
+  console.log("🧪 MAIL_RECEIVER:", process.env.MAIL_RECEIVER);
 
   // Validate đơn giản
   if (!name || !email || !message) {
@@ -17,8 +22,8 @@ router.post('/contact', async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.MAIL_USER,       
-        pass: process.env.MAIL_PASS        
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS
       }
     });
 
