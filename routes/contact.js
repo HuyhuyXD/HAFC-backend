@@ -1,3 +1,7 @@
+const express = require('express');
+const router = express.Router();
+const nodemailer = require('nodemailer');
+
 router.post('/contact', async (req, res) => {
   const { name, email, message } = req.body;
 
@@ -39,3 +43,5 @@ router.post('/contact', async (req, res) => {
     res.status(500).json({ success: false, error: 'Email send failed' });
   }
 });
+
+module.exports = router;
