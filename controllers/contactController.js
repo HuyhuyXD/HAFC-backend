@@ -1,5 +1,6 @@
+require('dotenv').config();
+
 const nodemailer = require('nodemailer');
-require('dotenv').config(); // ⬅️ Đặt ở đầu để load biến môi trường
 
 exports.sendContactEmail = async (req, res) => {
   const { name, email, message } = req.body;
@@ -8,13 +9,13 @@ exports.sendContactEmail = async (req, res) => {
     service: 'gmail',
     auth: {
       user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_PASS   
+      pass: process.env.GMAIL_PASS
     }
   });
 
   const mailOptions = {
     from: email,
-    to: process.env.GMAIL_USER,      
+    to: process.env.GMAIL_USER,
     subject: 'Liên hệ từ website',
     text: `Tên: ${name}\nEmail: ${email}\nNội dung: ${message}`
   };
@@ -23,7 +24,7 @@ exports.sendContactEmail = async (req, res) => {
     await transporter.sendMail(mailOptions);
     res.status(200).json({ success: true, message: 'Gửi thành công!' });
   } catch (error) {
-    console.error('🔥 LỖI GỬI MAIL:', error);
+    console.error('🔥 Lỗi gửi email:', error);
     res.status(500).json({ success: false, message: 'Lỗi gửi liên hệ!' });
   }
 };
