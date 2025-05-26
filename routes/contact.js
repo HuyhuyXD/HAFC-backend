@@ -1,19 +1,13 @@
-const express = require('express');
-const router = express.Router();
-const nodemailer = require('nodemailer');
-
 router.post('/contact', async (req, res) => {
   const { name, email, message } = req.body;
 
-  // Debug đầu vào từ form
   console.log("🔥 Nhận dữ liệu contact:", { name, email, message });
 
-  // Debug biến môi trường
-  console.log("🧪 MAIL_USER:", process.env.MAIL_USER);
+  // Gắn log để kiểm tra biến môi trường
+  console.log("🧪 MAIL_USER:", process.env.MAIL_USER || "❌ không tồn tại");
   console.log("🧪 MAIL_PASS:", process.env.MAIL_PASS ? "✅ Có giá trị" : "❌ Thiếu!");
-  console.log("🧪 MAIL_RECEIVER:", process.env.MAIL_RECEIVER);
+  console.log("🧪 MAIL_RECEIVER:", process.env.MAIL_RECEIVER || "❌ không tồn tại");
 
-  // Validate đơn giản
   if (!name || !email || !message) {
     return res.status(400).json({ success: false, error: 'Missing fields' });
   }
@@ -45,5 +39,3 @@ router.post('/contact', async (req, res) => {
     res.status(500).json({ success: false, error: 'Email send failed' });
   }
 });
-
-module.exports = router;
